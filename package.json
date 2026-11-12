@@ -1,0 +1,10 @@
+{
+  "name": "guerra-de-baloes-multiplayer",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Guerra de Balões multiplayer (Node + Socket.IO), otimizado para celular.",
+  "main": "server.js",
+  "scripts": { "start": "node server.js", "dev": "node --watch server.js" },
+  "engines": { "node": ">=20" },
+  "dependencies": { "compression": "^1.8.0", "express": "^5.1.0", "socket.io": "^4.8.1" }
+}
