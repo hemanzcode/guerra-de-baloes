@@ -5,122 +5,136 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Balooons</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@600;800;900&display=swap');
-  html,body{touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;margin:0;height:100%;overflow:hidden;background:#87b7e0;font-family:'Nunito','Fredoka One',system-ui,sans-serif}
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;800;900&family=Press+Start+2P&display=swap');
+  html,body{touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;margin:0;height:100%;overflow:hidden;background:#140828;font-family:'Nunito','Fredoka One',system-ui,sans-serif}
   canvas{display:block}
-  /* ===== OVERLAY / MENU — Kirby + Bomberman Style ===== */
+  
+  /* ===== OVERLAY / MENU RETRÔ SUPER NINTENDO — Kirby Super Star / Bomberman ===== */
   #ov{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
-      background:#16082b;
-      color:#fff;text-align:center;cursor:pointer;gap:10px;z-index:2;overflow:hidden}
+      color:#fff;text-align:center;cursor:pointer;z-index:2;overflow:hidden;padding:12px;box-sizing:border-box}
 
   /* Dynamic Promotional Background Slideshow */
   #promoBg{position:absolute;inset:0;overflow:hidden;z-index:0;pointer-events:none}
-  .promoSlide{position:absolute;inset:-20px;background-size:cover;background-position:center;opacity:0;
-    transition:opacity 1.5s ease-in-out, transform 8s ease-out;transform:scale(1.05)}
-  .promoSlide.active{opacity:.45;transform:scale(1.15)}
+  .promoSlide{position:absolute;inset:-25px;background-size:cover;background-position:center;opacity:0;
+    transition:opacity 1.6s ease-in-out, transform 8s ease-out;transform:scale(1.05);filter:brightness(.85) contrast(1.1)}
+  .promoSlide.active{opacity:.65;transform:scale(1.15)}
   #promoVignette{position:absolute;inset:0;
-    background:radial-gradient(circle at center, rgba(35,14,75,0.4) 0%, rgba(15,5,35,0.85) 80%, rgba(10,2,25,0.95) 100%);
+    background:radial-gradient(circle at center, rgba(20,5,45,0.45) 0%, rgba(12,2,30,0.88) 75%, rgba(6,1,18,0.98) 100%);
+    box-shadow:inset 0 0 100px rgba(0,0,0,.8);
     z-index:0;pointer-events:none}
-  /* Animated stars background */
-  #ov::before{content:'';position:absolute;inset:0;
-    background:radial-gradient(2px 2px at 10% 15%,#fff9,transparent),
-    radial-gradient(2px 2px at 25% 35%,#ffe06688,transparent),
-    radial-gradient(3px 3px at 40% 10%,#ff9de288,transparent),
-    radial-gradient(2px 2px at 55% 45%,#fff9,transparent),
-    radial-gradient(2px 2px at 70% 20%,#ffe06688,transparent),
-    radial-gradient(3px 3px at 85% 55%,#ff9de288,transparent),
-    radial-gradient(2px 2px at 15% 70%,#fff9,transparent),
-    radial-gradient(2px 2px at 35% 85%,#ffe06688,transparent),
-    radial-gradient(3px 3px at 60% 75%,#fff9,transparent),
-    radial-gradient(2px 2px at 80% 90%,#ffe06688,transparent),
-    radial-gradient(2px 2px at 95% 30%,#fff9,transparent),
-    radial-gradient(2px 2px at 5% 50%,#ff9de288,transparent),
-    radial-gradient(3px 3px at 50% 60%,#fff6,transparent),
-    radial-gradient(2px 2px at 90% 70%,#ffe06688,transparent);
-    animation:twinkle 3s ease-in-out infinite alternate;pointer-events:none;z-index:0}
-  @keyframes twinkle{0%{opacity:.6}100%{opacity:1}}
-  /* Floating clouds */
-  #ov::after{content:'☁️  ☁️  ☁️  ☁️';position:absolute;bottom:8%;left:0;width:200%;font-size:60px;
-    letter-spacing:120px;opacity:.15;animation:clouds 25s linear infinite;pointer-events:none;z-index:0}
-  @keyframes clouds{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-  #ov h1{margin:0;font-family:'Fredoka One',sans-serif;font-size:2.6rem;
-    background:linear-gradient(180deg,#fff 0%,#ffe066 40%,#ffb347 100%);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-    filter:drop-shadow(0 3px 6px rgba(0,0,0,.5)) drop-shadow(0 0 20px rgba(255,224,102,.4));
-    animation:titleBounce 2s ease-in-out infinite;position:relative;z-index:1}
-  @keyframes titleBounce{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-6px) scale(1.02)}}
-  #ov p{margin:0;opacity:.92;max-width:34rem;line-height:1.6;font-size:13px;
-    background:rgba(0,0,0,.3);border-radius:16px;padding:12px 18px;backdrop-filter:blur(8px);
-    border:1px solid rgba(255,255,255,.12);position:relative;z-index:1}
+
+  /* Scanlines CRT effect sutil retrô */
+  #ov::after{content:'';position:absolute;inset:0;
+    background:repeating-linear-gradient(rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px, rgba(0,0,0,0.2) 3px, rgba(0,0,0,0) 4px);
+    pointer-events:none;z-index:1;opacity:.6}
+
+  /* Cartão Central do Menu — Moldura Arcade SNES */
+  .arcadeFrame{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:12px;
+    width:100%;max-width:440px;background:rgba(20,10,40,0.85);border-radius:28px;padding:24px 20px;
+    border:3px solid #ffcc00;box-shadow:0 0 30px rgba(255,204,0,0.4), 0 10px 40px rgba(0,0,0,0.9), inset 0 2px 4px rgba(255,255,255,0.4);
+    backdrop-filter:blur(10px)}
+
+  /* Banner Logo Oficial */
+  .titleBannerWrap{position:relative;width:100%;max-width:380px;height:120px;display:flex;align-items:center;justify-content:center;
+    animation:floatLogo 3s ease-in-out infinite alternate}
+  .titleBannerImg{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 6px 12px rgba(0,0,0,0.8))}
+  @keyframes floatLogo{0%{transform:translateY(0) scale(1)}100%{transform:translateY(-7px) scale(1.03)}}
+
+  .arcadeTagline{font-family:'Fredoka One',sans-serif;color:#ffe066;font-size:15px;letter-spacing:1px;
+    text-shadow:0 2px 4px rgba(0,0,0,0.8), 0 0 10px rgba(255,224,102,0.6);margin-top:-6px}
+
+  /* Inputs estilizados estilo arcade */
+  #ov input{font:800 16px 'Nunito',sans-serif;padding:12px 16px;border-radius:20px;border:3px solid #ff9de2;
+    width:100%;box-sizing:border-box;text-align:center;
+    background:rgba(30,15,55,0.9);color:#fff;outline:none;transition:all .3s;box-shadow:inset 0 2px 6px rgba(0,0,0,.6)}
+  #ov input::placeholder{color:rgba(255,255,255,.6);font-weight:700}
+  #ov input:focus{border-color:#ffe066;box-shadow:0 0 18px rgba(255,224,102,.5), inset 0 2px 6px rgba(0,0,0,.6)}
+  #ov input#codeInput{text-transform:uppercase;letter-spacing:.2em;font-family:'Press Start 2P','Nunito',monospace;font-size:14px}
+
+  /* Botões Arcade 3D Relevo Kirby/Bomberman */
+  .arcadeBtn{font:800 16px 'Fredoka One',sans-serif;padding:14px 20px;border-radius:22px;border:none;cursor:pointer;width:100%;
+    transition:transform .12s, box-shadow .12s, filter .12s;position:relative;letter-spacing:.8px;text-transform:uppercase;
+    display:flex;align-items:center;justify-content:center;gap:10px}
+  
+  /* Botão Primário Amarelo/Dourado Estrela do Kirby */
+  .btnGold{background:linear-gradient(180deg,#fff275 0%,#ffb703 50%,#fb8500 100%);
+    color:#3d1a00;border-bottom:5px solid #b85d00;box-shadow:0 6px 15px rgba(251,133,0,0.5), inset 0 2px 0 rgba(255,255,255,0.7);
+    text-shadow:0 1px 0 rgba(255,255,255,0.5)}
+  .btnGold:active{transform:translateY(3px);border-bottom:2px solid #b85d00;box-shadow:0 3px 8px rgba(251,133,0,0.4)}
+  .btnGold:hover{filter:brightness(1.08)}
+
+  /* Botão Secundário Azul Bomberman */
+  .btnBlue{background:linear-gradient(180deg,#70e000 0%,#38b000 50%,#007200 100%);
+    color:#fff;border-bottom:5px solid #004b00;box-shadow:0 6px 15px rgba(56,176,0,0.4), inset 0 2px 0 rgba(255,255,255,0.5);
+    text-shadow:0 2px 3px rgba(0,0,0,0.5)}
+  .btnBlue:active{transform:translateY(3px);border-bottom:2px solid #004b00}
+  .btnBlue:hover{filter:brightness(1.08)}
+
+  /* Botão Roxo / Solo */
+  .btnPurple{background:linear-gradient(180deg,#b5179e 0%,#7209b7 50%,#560bad 100%);
+    color:#fff;border-bottom:5px solid #3a0078;box-shadow:0 6px 15px rgba(114,9,183,0.4), inset 0 2px 0 rgba(255,255,255,0.4);
+    text-shadow:0 2px 3px rgba(0,0,0,0.5)}
+  .btnPurple:active{transform:translateY(3px);border-bottom:2px solid #3a0078}
+  .btnPurple:hover{filter:brightness(1.08)}
+
+  #codeRow{display:flex;gap:8px;width:100%}
+  #codeRow input{flex:1}
+  #codeRow button{width:auto;white-space:nowrap;padding:12px 20px}
+
+  /* Botão Como Jogar & Modal */
+  #btnHelp{background:none;border:none;color:#ffcc00;font-family:'Fredoka One',sans-serif;font-size:14px;
+    cursor:pointer;text-decoration:underline;opacity:.9;margin-top:2px;display:flex;align-items:center;gap:6px}
+  #btnHelp:hover{opacity:1;transform:scale(1.05)}
+
+  #modalHelp{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:99;
+    align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(6px)}
+  .modalBox{background:linear-gradient(180deg,#241042 0%,#180830 100%);border:3px solid #ffcc00;
+    border-radius:24px;padding:24px;max-width:480px;color:#fff;position:relative;box-shadow:0 0 30px rgba(255,204,0,0.5)}
+  .modalBox h2{margin:0 0 12px 0;font-family:'Fredoka One',sans-serif;color:#ffe066;font-size:24px}
+  .modalBox p{font-size:13px;line-height:1.7;margin:0 0 16px 0;opacity:.95;text-align:left}
+  .modalClose{background:#e8453c;color:#fff;border:none;padding:10px 20px;border-radius:18px;font-family:'Fredoka One',sans-serif;
+    cursor:pointer;font-size:14px;box-shadow:0 4px 10px rgba(232,69,60,.4)}
+
+  #roomList{width:100%;max-height:22vh;overflow-y:auto;display:flex;flex-direction:column;gap:6px}
+  .roomRow{display:flex;justify-content:space-between;align-items:center;
+    background:rgba(255,255,255,.1);border-radius:16px;padding:8px 12px;font-size:13px;
+    border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(4px)}
+  .roomRow button{width:auto;padding:6px 14px;font-size:12px;border-radius:16px}
+  #teamPick{display:flex;gap:10px;width:100%}
+  #teamPick button{flex:1;opacity:.6;border-radius:20px;padding:14px;font-size:16px;transition:all .3s;font-family:'Fredoka One',sans-serif}
+  #teamPick button.on{opacity:1;outline:none;transform:scale(1.05);box-shadow:0 0 25px rgba(255,255,255,.5)}
+  #peerList{width:100%;text-align:left;font-size:13px;background:rgba(0,0,0,.4);border-radius:16px;
+    padding:12px 16px;max-height:24vh;overflow-y:auto;border:1px solid rgba(255,255,255,.15)}
+  #peerList div{padding:4px 0;display:flex;justify-content:space-between}
+  .div{font-size:12px;opacity:.7;width:100%}
+
   #hud{position:fixed;left:12px;bottom:12px;color:#fff;font-size:13px;text-shadow:0 1px 3px #000;pointer-events:none;line-height:1.5}
   #pick{position:fixed;right:12px;top:12px;z-index:3;font-size:12px;color:#fff;text-shadow:0 1px 3px #000}
-  #top{position:fixed;top:10px;left:50%;transform:translateX(-50%);color:#fff;font:600 16px 'Nunito',system-ui;text-shadow:0 1px 4px #000;background:rgba(0,0,0,.35);padding:6px 14px;border-radius:20px}
-  #bot{position:fixed;left:14px;bottom:44px;color:#fff;font:700 26px 'Nunito',system-ui;text-shadow:0 2px 4px #000}
-  #msg{position:fixed;top:22%;width:100%;text-align:center;color:#fff;font:800 34px 'Fredoka One',system-ui;text-shadow:0 2px 8px #000,0 0 30px rgba(255,224,102,.5);pointer-events:none}
+  #top{position:fixed;top:10px;left:50%;transform:translateX(-50%);color:#fff;font:800 16px 'Nunito',system-ui;text-shadow:0 1px 4px #000;background:rgba(0,0,0,.4);padding:6px 14px;border-radius:20px;backdrop-filter:blur(4px)}
+  #bot{position:fixed;left:14px;bottom:44px;color:#fff;font:800 24px 'Fredoka One',system-ui;text-shadow:0 2px 4px #000}
+  #msg{position:fixed;top:22%;width:100%;text-align:center;color:#fff;font:800 36px 'Fredoka One',system-ui;text-shadow:0 3px 10px #000, 0 0 30px rgba(255,224,102,.6);pointer-events:none}
   #cross{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);color:#fff;font:300 30px system-ui;text-shadow:0 0 3px #000;pointer-events:none}
   .btn,#joy{display:none}
-  body.touch .btn{display:flex;position:fixed;align-items:center;justify-content:center;border-radius:50%;background:rgba(255,255,255,.28);border:2px solid rgba(255,255,255,.7);color:#fff;font-size:28px;z-index:5;-webkit-tap-highlight-color:transparent}
-  body.touch .btn:active,.btn.on{background:rgba(255,255,255,.6)}
+  body.touch .btn{display:flex;position:fixed;align-items:center;justify-content:center;border-radius:50%;background:rgba(255,255,255,.32);border:2px solid rgba(255,255,255,.8);color:#fff;font-size:28px;z-index:5;-webkit-tap-highlight-color:transparent}
+  body.touch .btn:active,.btn.on{background:rgba(255,255,255,.65)}
   #bThrow{width:92px;height:92px;right:calc(26px + env(safe-area-inset-right,0px));bottom:calc(34px + env(safe-area-inset-bottom,0px));font-size:40px!important}
   #bJump{width:66px;height:66px;right:calc(130px + env(safe-area-inset-right,0px));bottom:calc(22px + env(safe-area-inset-bottom,0px))}
   #bRun{width:58px;height:58px;right:calc(40px + env(safe-area-inset-right,0px));bottom:calc(140px + env(safe-area-inset-bottom,0px))}
-  #joy{position:fixed;width:130px;height:130px;margin:-65px 0 0 -65px;border-radius:50%;background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.55);z-index:4;pointer-events:none}
-  #knob{position:absolute;left:35px;top:35px;width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.6)}
+  #joy{position:fixed;width:130px;height:130px;margin:-65px 0 0 -65px;border-radius:50%;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.6);z-index:4;pointer-events:none}
+  #knob{position:absolute;left:35px;top:35px;width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.65)}
   body.touch #bot{top:44px;bottom:auto;font-size:20px}
   body.touch #top{font-size:13px;top:calc(8px + env(safe-area-inset-top,0px))}
   body.touch #msg{font-size:22px}
   body.touch #pick{top:auto;bottom:6px;right:8px;font-size:10px}
   body.touch #hud{display:none}
-  #ov{overflow-y:auto;padding:20px 12px}
-  #ov .scr{display:flex;flex-direction:column;align-items:center;gap:12px;width:100%;max-width:420px;position:relative;z-index:1}
-  #ov input{font:600 16px 'Nunito',system-ui;padding:12px 14px;border-radius:25px;border:3px solid rgba(255,255,255,.3);
-    width:100%;box-sizing:border-box;text-align:center;
-    background:rgba(255,255,255,.12);color:#fff;backdrop-filter:blur(8px);
-    outline:none;transition:all .3s}
-  #ov input::placeholder{color:rgba(255,255,255,.5)}
-  #ov input:focus{border-color:#ffe066;box-shadow:0 0 20px rgba(255,224,102,.3)}
-  #ov input#codeInput{text-transform:uppercase;letter-spacing:.15em}
-  #ov button{font:700 15px 'Fredoka One',system-ui;padding:13px 18px;border-radius:25px;border:none;cursor:pointer;width:100%;
-    transition:all .2s;position:relative;overflow:hidden;letter-spacing:.5px}
-  #ov button::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
-    background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transition:left .5s}
-  #ov button:hover::after{left:100%}
-  /* Primary button — golden Kirby star style */
-  #ov button:not(.sec){background:linear-gradient(180deg,#ffe066 0%,#ffb347 50%,#ff8c42 100%);
-    color:#3a1a00;box-shadow:0 4px 15px rgba(255,180,70,.4),inset 0 1px 0 rgba(255,255,255,.4);
-    text-shadow:0 1px 0 rgba(255,255,255,.3)}
-  #ov button:not(.sec):hover{transform:translateY(-2px) scale(1.02);box-shadow:0 6px 25px rgba(255,180,70,.6)}
-  #ov button:not(.sec):active{transform:translateY(1px) scale(.98)}
-  /* Secondary button — Bomberman blue */
-  #ov button.sec{background:linear-gradient(180deg,#6e8efb 0%,#4a6cf7 50%,#3b5de7 100%);
-    color:#fff;border:2px solid rgba(255,255,255,.25);
-    box-shadow:0 4px 15px rgba(74,108,247,.3),inset 0 1px 0 rgba(255,255,255,.2)}
-  #ov button.sec:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(74,108,247,.5)}
-  #ov button.sec:active{transform:translateY(1px)}
-  #codeRow{display:flex;gap:8px;width:100%}
-  #codeRow input{flex:1}
-  #codeRow button{width:auto;white-space:nowrap;border-radius:25px}
-  #roomList{width:100%;max-height:26vh;overflow-y:auto;display:flex;flex-direction:column;gap:6px}
-  .roomRow{display:flex;justify-content:space-between;align-items:center;
-    background:rgba(255,255,255,.1);border-radius:16px;padding:10px 14px;font-size:14px;
-    border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(4px);transition:background .2s}
-  .roomRow:hover{background:rgba(255,255,255,.18)}
-  .roomRow button{width:auto;padding:8px 16px;font-size:13px;border-radius:20px}
-  #teamPick{display:flex;gap:10px;width:100%}
-  #teamPick button{flex:1;opacity:.6;border-radius:20px;padding:14px;font-size:16px;transition:all .3s}
-  #teamPick button.on{opacity:1;outline:none;transform:scale(1.05);
-    box-shadow:0 0 25px rgba(255,255,255,.4)}
-  #peerList{width:100%;text-align:left;font-size:14px;background:rgba(0,0,0,.25);border-radius:16px;
-    padding:12px 16px;max-height:26vh;overflow-y:auto;border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(6px)}
-  #peerList div{padding:4px 0;display:flex;justify-content:space-between}
-  .div{font-size:12px;opacity:.65;width:100%}
-  #prompt{position:fixed;bottom:22%;width:100%;text-align:center;color:#fff;font:700 18px 'Nunito',system-ui;text-shadow:0 2px 6px #000;pointer-events:none;display:none}
+  #prompt{position:fixed;bottom:22%;width:100%;text-align:center;color:#fff;font:800 18px 'Fredoka One',system-ui;text-shadow:0 2px 6px #000;pointer-events:none;display:none}
   #bEnter{width:66px;height:66px;right:calc(130px + env(safe-area-inset-right,0px));bottom:calc(100px + env(safe-area-inset-bottom,0px))}
   .hid{display:none!important}
   #toast{position:fixed;top:14%;width:100%;text-align:center;color:#fff;font:800 20px 'Fredoka One',system-ui;text-shadow:0 2px 8px #000;pointer-events:none;opacity:0;transition:opacity .3s;padding:0 12px;box-sizing:border-box}
-  /* Floating emoji decorations */
-  .deco{position:absolute;pointer-events:none;z-index:0;animation:float 4s ease-in-out infinite}
-  @keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-15px) rotate(5deg)}}
+  
+  /* Emojis animados flutuando */
+  .deco{position:absolute;pointer-events:none;z-index:1;animation:float 4s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-14px) rotate(6deg)}}
 </style>
 </head>
 <body>
@@ -134,33 +148,82 @@
     <div class="promoSlide" style="background-image:url('textures/promo5.jpg')"></div>
     <div id="promoVignette"></div>
   </div>
-  <!-- Floating decorations Kirby/Bomberman style -->
-  <span class="deco" style="top:8%;left:8%;font-size:40px;animation-delay:0s">🎈</span>
-  <span class="deco" style="top:15%;right:12%;font-size:35px;animation-delay:.7s">💧</span>
-  <span class="deco" style="bottom:20%;left:6%;font-size:38px;animation-delay:1.4s">⭐</span>
-  <span class="deco" style="bottom:12%;right:8%;font-size:42px;animation-delay:2.1s">🎈</span>
-  <span class="deco" style="top:40%;left:4%;font-size:28px;animation-delay:.3s">💫</span>
-  <span class="deco" style="top:35%;right:5%;font-size:30px;animation-delay:1.8s">🌟</span>
-  <span class="deco" style="bottom:35%;left:12%;font-size:32px;animation-delay:2.5s">💣</span>
-  <span class="deco" style="bottom:40%;right:10%;font-size:28px;animation-delay:1s">🎯</span>
-  <div id="scrHome" class="scr">
-    <h1>🎈 Balooons 🎈</h1>
-    <p style="font-size:11px;opacity:.8">💥 5v5 · melhor de 5 rounds · elimine o time inimigo (3 acertos eliminam)<br>WASD: andar · Shift: correr · Espaço: pular · <b>clique</b> (ou F): arremessar · mouse: câmera<br>Passe por cima das bolinhas coloridas para pegar munição<br>🚜 Tanques · 🚁 Helicópteros · 🚙 Jipes · 🏍️ Motos — <b>E</b> entra/sai<br>🌀 Portais coloridos · 🎲 Cubos X desbloqueiam veículos</p>
-    <input id="nameInput" maxlength="16" placeholder="✏️ Seu nome de guerra">
-    <button id="btnCreate">🆕 Criar sala multiplayer</button>
-    <div id="codeRow"><input id="codeInput" maxlength="4" placeholder="🔑 CÓDIGO"><button id="btnJoinCode">Entrar</button></div>
-    <div class="div" id="roomListLabel"></div>
-    <div id="roomList"></div>
-    <button class="sec" id="btnSolo">🤖 Jogar sozinho contra bots</button>
-    <p class="div" id="mpStatus"></p>
+
+  <!-- Decorações Fofas Flutuantes -->
+  <span class="deco" style="top:6%;left:8%;font-size:36px;animation-delay:0s">⭐</span>
+  <span class="deco" style="top:12%;right:10%;font-size:38px;animation-delay:.8s">🎈</span>
+  <span class="deco" style="bottom:14%;left:8%;font-size:40px;animation-delay:1.5s">💧</span>
+  <span class="deco" style="bottom:10%;right:10%;font-size:36px;animation-delay:2.2s">🌟</span>
+
+  <!-- Modal de Instruções (Como Jogar) -->
+  <div id="modalHelp" onclick="if(event.target===this)this.style.display='none'">
+    <div class="modalBox">
+      <h2>📖 Como Jogar</h2>
+      <p>
+        🎯 <b>Objetivo:</b> Batalha 5x5 em melhor de 5 rounds. Elimine o time inimigo arremessando balões de água (3 acertos eliminam)!<br><br>
+        🎮 <b>Controles:</b><br>
+        • <b>WASD / Analógico:</b> Andar<br>
+        • <b>Shift:</b> Correr · <b>Espaço:</b> Pular<br>
+        • <b>Clique esquerdo (ou F):</b> Arremessar balão<br>
+        • <b>Mouse / Toque:</b> Mirar câmera<br><br>
+        🚜 <b>Veículos (Tecla E entra/sai):</b><br>
+        • <b>Tanques:</b> 100 tiros rápidos com super alcance.<br>
+        • <b>Helicópteros:</b> Voe alto (Espaço sobe, C/Shift desce) e bombardeie!<br>
+        • <b>Jipes & Motos:</b> Super velocidade pelo mapa.<br><br>
+        🎲 <b>Cubos X:</b> Pegue o cubo misterioso para liberar um veículo surpresa no mapa!<br>
+        🌀 <b>Portais:</b> Teletransporte instantâneo entre portais de mesma cor.
+      </p>
+      <button class="modalClose" onclick="document.getElementById('modalHelp').style.display='none'">FECHAR [X]</button>
+    </div>
   </div>
-  <div id="scrWait" class="scr" style="display:none">
-    <h1>⭐ Sala <span id="waitCode"></span> ⭐</h1>
-    <div id="teamPick"><button data-t="0" style="background:linear-gradient(180deg,#5da3ff,#3d7bff);color:#fff;border:2px solid rgba(255,255,255,.3)">🔵 Time Azul</button><button data-t="1" style="background:linear-gradient(180deg,#ff6b6b,#e8453c);color:#fff;border:2px solid rgba(255,255,255,.3)">🔴 Time Vermelho</button></div>
-    <div id="peerList"></div>
-    <button id="btnStart" style="display:none">▶ Iniciar partida!</button>
-    <p id="waitHint" class="div">⏳ Aguardando o anfitrião iniciar a partida…</p>
-    <button class="sec" id="btnLeave">↩ Sair da sala</button>
+
+  <!-- Moldura Central Arcade -->
+  <div class="arcadeFrame">
+    <div class="titleBannerWrap">
+      <img src="textures/title_banner.jpg" class="titleBannerImg" alt="Balooons" onerror="this.style.display='none';document.getElementById('fallbackTitle').style.display='block';">
+      <h1 id="fallbackTitle" style="display:none;font-family:'Fredoka One',sans-serif;font-size:3rem;margin:0;color:#ffcc00;text-shadow:0 3px 10px #000">🎈 BALOOONS 🎈</h1>
+    </div>
+    <div class="arcadeTagline">★ WATER BALLOON BATTLE ARENA ★</div>
+
+    <!-- Tela Inicial de Entrada -->
+    <div id="scrHome" style="width:100%;display:flex;flex-direction:column;gap:10px;align-items:center">
+      <input id="nameInput" maxlength="16" placeholder="✏️ SEU APELIDO">
+
+      <button id="btnCreate" class="arcadeBtn btnGold">
+        <span>🆕 CRIAR SALA</span>
+      </button>
+
+      <div id="codeRow">
+        <input id="codeInput" maxlength="4" placeholder="CÓDIGO">
+        <button id="btnJoinCode" class="arcadeBtn btnBlue" style="font-size:14px">ENTRAR</button>
+      </div>
+
+      <div class="div" id="roomListLabel" style="color:#ffe066;font-weight:700"></div>
+      <div id="roomList"></div>
+
+      <button id="btnSolo" class="arcadeBtn btnPurple">
+        <span>🤖 JOGAR SOLO (VS BOTS)</span>
+      </button>
+
+      <button id="btnHelp" type="button" onclick="document.getElementById('modalHelp').style.display='flex'">
+        ❓ COMO JOGAR & VEÍCULOS
+      </button>
+
+      <p class="div" id="mpStatus" style="color:#ffcc00;margin:0"></p>
+    </div>
+
+    <!-- Tela do Lobby de Espera -->
+    <div id="scrWait" style="display:none;width:100%;flex-direction:column;gap:12px;align-items:center">
+      <h2 style="margin:0;font-family:'Fredoka One',sans-serif;color:#ffe066;font-size:24px">SALA <span id="waitCode"></span></h2>
+      <div id="teamPick">
+        <button data-t="0" style="background:linear-gradient(180deg,#5da3ff,#2172f3);color:#fff;border:3px solid #fff">🔵 TIME AZUL</button>
+        <button data-t="1" style="background:linear-gradient(180deg,#ff6b6b,#d90429);color:#fff;border:3px solid #fff">🔴 TIME VERMELHO</button>
+      </div>
+      <div id="peerList"></div>
+      <button id="btnStart" class="arcadeBtn btnGold" style="display:none">▶ INICIAR BATALHA!</button>
+      <p id="waitHint" class="div" style="color:#ffe066">⏳ Aguardando o anfitrião iniciar…</p>
+      <button id="btnLeave" class="arcadeBtn btnPurple" style="padding:10px">↩ SAIR DA SALA</button>
+    </div>
   </div>
 </div>
 <div id="hud"></div><div id="top" style="display:none"></div><div id="bot" style="display:none"></div><div id="msg"></div><div id="prompt"></div><div id="toast"></div><div id="cross" style="display:none">+</div><div id="joy"><div id="knob"></div></div><div class="btn" id="bThrow">🎈</div><div class="btn" id="bJump">⤒</div><div class="btn" id="bRun">🏃</div><div class="btn hid" id="bEnter">🚜</div>
@@ -789,12 +852,135 @@ const fw = new Vector3();
 function playerThrow(){ if (state!=="live"||!P||!P.alive||P.tank>=0) return; camera.getWorldDirection(fw);
   const t = camera.position.clone().addScaledVector(fw,45); throwB(P,t.x,t.y,t.z); }
 
-/* ---------- Música ---------- */
+/* ---------- Música Chiptune SNES (Kirby & Bomberman Style) via Web Audio API ---------- */
+let audioCtx = null, musicPlaying = false, musicMuted = false;
+const NOTE_FREQ = {
+  C3: 130.81, D3: 146.83, E3: 164.81, F3: 174.61, G3: 196.00, A3: 220.00, B3: 246.94,
+  C4: 261.63, D4: 293.66, E4: 329.63, F4: 349.23, G4: 392.00, A4: 440.00, B4: 493.88,
+  C5: 523.25, D5: 587.33, E5: 659.25, F5: 698.46, G5: 783.99, A5: 880.00, B5: 987.77,
+  C6: 1046.50
+};
+
+// Melodia alegre e saltitante estilo Gourmet Race (Kirby) + Battle Theme (Bomberman)
+const THEME_MELODY = [
+  ['E5',0.2],['G5',0.2],['A5',0.3],['G5',0.2],['E5',0.2],['C5',0.3],
+  ['D5',0.2],['E5',0.2],['F5',0.3],['E5',0.2],['D5',0.2],['B4',0.3],
+  ['C5',0.2],['E5',0.2],['G5',0.3],['C6',0.4],['B5',0.2],['A5',0.2],
+  ['G5',0.3],['E5',0.2],['D5',0.3],['C5',0.5],
+  ['A4',0.2],['C5',0.2],['E5',0.2],['A5',0.3],['G5',0.2],['E5',0.2],
+  ['F5',0.2],['A5',0.2],['G5',0.2],['F5',0.3],['E5',0.2],['D5',0.2],
+  ['E5',0.2],['G5',0.2],['C6',0.3],['B5',0.2],['A5',0.2],['G5',0.2],
+  ['D5',0.2],['F5',0.2],['E5',0.3],['D5',0.2],['C5',0.6]
+];
+
+const BASS_LINE = [
+  ['C3',0.4],['G3',0.4],['C4',0.4],['G3',0.4],
+  ['G2',0.4],['D3',0.4],['G3',0.4],['D3',0.4],
+  ['A2',0.4],['E3',0.4],['A3',0.4],['E3',0.4],
+  ['F2',0.4],['C3',0.4],['G2',0.4],['G3',0.4]
+];
+
+function initAudioContext(){
+  if (!audioCtx){
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (AudioContextClass) audioCtx = new AudioContextClass();
+  }
+  if (audioCtx && audioCtx.state === 'suspended'){
+    audioCtx.resume();
+  }
+}
+
+function playChiptuneTone(freq, time, dur, type='square', vol=0.08){
+  if (!audioCtx || musicMuted) return;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = type;
+  osc.frequency.setValueAtTime(freq, time);
+  
+  // Envelope ADSR estilo 16-bit
+  gain.gain.setValueAtTime(0, time);
+  gain.gain.linearRampToValueAtTime(vol, time + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.001, time + dur - 0.01);
+  
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.start(time);
+  osc.stop(time + dur);
+}
+
+function playPercussion(time){
+  if (!audioCtx || musicMuted) return;
+  // Caixa / Snare ruído branco simulado
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = 'triangle';
+  osc.frequency.setValueAtTime(120, time);
+  osc.frequency.exponentialRampToValueAtTime(30, time + 0.08);
+  gain.gain.setValueAtTime(0.06, time);
+  gain.gain.exponentialRampToValueAtTime(0.001, time + 0.08);
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.start(time);
+  osc.stop(time + 0.08);
+}
+
+let themeLoopTimeout = null;
+function startArcadeTheme(){
+  initAudioContext();
+  if (!audioCtx || musicPlaying) return;
+  musicPlaying = true;
+  
+  function scheduleLoop(){
+    if (!musicPlaying) return;
+    const now = audioCtx.currentTime + 0.05;
+    let tLead = now;
+    
+    // Melodia Principal (Square wave retrô)
+    THEME_MELODY.forEach(([note, dur]) => {
+      const f = NOTE_FREQ[note] || 440;
+      playChiptuneTone(f, tLead, dur, 'square', 0.07);
+      tLead += dur;
+    });
+    
+    // Linha de Baixo (Triangle wave) e Percussão
+    let totalLen = tLead - now;
+    let tBass = now;
+    while (tBass < tLead){
+      BASS_LINE.forEach(([note, dur]) => {
+        if (tBass < tLead){
+          const f = NOTE_FREQ[note] || 130;
+          playChiptuneTone(f, tBass, dur * 0.9, 'triangle', 0.12);
+          playPercussion(tBass);
+          tBass += dur;
+        }
+      });
+    }
+    
+    themeLoopTimeout = setTimeout(scheduleLoop, Math.max(100, (totalLen - 0.1) * 1000));
+  }
+  
+  scheduleLoop();
+}
+
+function stopArcadeTheme(){
+  musicPlaying = false;
+  if (themeLoopTimeout) clearTimeout(themeLoopTimeout);
+}
+
+/* Inicia automaticamente com qualquer clique ou interação do usuário */
+['pointerdown', 'keydown', 'touchstart'].forEach(evt => {
+  window.addEventListener(evt, () => {
+    initAudioContext();
+    if (!musicPlaying) startArcadeTheme();
+  }, { once: false });
+});
+
+/* ---------- Música de Arquivo Externo (Opcional) ---------- */
 let music = null;
 function tocar(src){
   if (music) music.pause();
   music = new Audio(src); music.loop = true; music.volume = VOLUME;
-  music.play().catch(() => {});
+  music.play().then(() => { stopArcadeTheme(); }).catch(() => { startArcadeTheme(); });
 }
 document.getElementById("file").addEventListener("change", e => { const f = e.target.files[0]; if (f) tocar(URL.createObjectURL(f)); });
 
