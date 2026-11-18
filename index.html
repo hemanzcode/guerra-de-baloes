@@ -95,17 +95,41 @@
   .modalClose{background:#e8453c;color:#fff;border:none;padding:10px 20px;border-radius:18px;font-family:'Fredoka One',sans-serif;
     cursor:pointer;font-size:14px;box-shadow:0 4px 10px rgba(232,69,60,.4)}
 
-  #roomList{width:100%;max-height:22vh;overflow-y:auto;display:flex;flex-direction:column;gap:6px}
+  #roomList{width:100%;max-height:22vh;overflow-y:auto;display:flex;flex-direction:column;gap:8px}
   .roomRow{display:flex;justify-content:space-between;align-items:center;
-    background:rgba(255,255,255,.1);border-radius:16px;padding:8px 12px;font-size:13px;
-    border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(4px)}
-  .roomRow button{width:auto;padding:6px 14px;font-size:12px;border-radius:16px}
-  #teamPick{display:flex;gap:10px;width:100%}
-  #teamPick button{flex:1;opacity:.6;border-radius:20px;padding:14px;font-size:16px;transition:all .3s;font-family:'Fredoka One',sans-serif}
-  #teamPick button.on{opacity:1;outline:none;transform:scale(1.05);box-shadow:0 0 25px rgba(255,255,255,.5)}
-  #peerList{width:100%;text-align:left;font-size:13px;background:rgba(0,0,0,.4);border-radius:16px;
-    padding:12px 16px;max-height:24vh;overflow-y:auto;border:1px solid rgba(255,255,255,.15)}
-  #peerList div{padding:4px 0;display:flex;justify-content:space-between}
+    background:linear-gradient(90deg, rgba(74,20,140,0.6) 0%, rgba(30,10,60,0.8) 100%);
+    border-radius:18px;padding:10px 14px;font-size:14px;
+    border:2px solid #ffcc00;box-shadow:0 4px 10px rgba(0,0,0,0.5)}
+  .roomRow button{width:auto;padding:6px 16px;font-size:12px;border-radius:16px;font-family:'Fredoka One',sans-serif;
+    background:linear-gradient(180deg,#70e000,#007200);color:#fff;border:none;cursor:pointer;
+    box-shadow:0 3px 6px rgba(0,0,0,.4)}
+  .roomRow button:hover{filter:brightness(1.15)}
+
+  /* Painel de Batalha de Times do Multiplayer Lobby */
+  .lobbyTitleBox{background:linear-gradient(90deg,#ff007f,#7928ca,#0070f3);padding:6px 18px;border-radius:20px;
+    box-shadow:0 0 15px rgba(255,0,127,0.5);margin-bottom:4px}
+  .lobbyTitleBox span{font-family:'Press Start 2P',monospace;font-size:16px;color:#fff;letter-spacing:2px}
+
+  .vsTeamsContainer{display:flex;gap:12px;width:100%;justify-content:center}
+  .teamCard{flex:1;display:flex;flex-direction:column;align-items:center;padding:12px 10px;border-radius:20px;
+    cursor:pointer;transition:all .2s;position:relative;border:3px solid transparent}
+  .teamCard.blue{background:linear-gradient(180deg,rgba(33,114,243,0.3) 0%,rgba(13,71,161,0.85) 100%);border-color:#2172f3}
+  .teamCard.red{background:linear-gradient(180deg,rgba(247,37,133,0.3) 0%,rgba(177,18,38,0.85) 100%);border-color:#f72585}
+  
+  .teamCard:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.6)}
+  .teamCard.selected{border-color:#ffe066;box-shadow:0 0 25px rgba(255,224,102,0.8);transform:scale(1.04)}
+  .teamBadge{font-family:'Fredoka One',sans-serif;font-size:16px;margin-bottom:4px}
+  .teamCount{font-family:'Nunito',sans-serif;font-weight:900;font-size:12px;opacity:.9}
+
+  /* Lista de Jogadores Estilo Cartão Colecionável */
+  #peerList{width:100%;text-align:left;font-size:13px;background:rgba(15,5,30,0.7);border-radius:20px;
+    padding:12px 14px;max-height:22vh;overflow-y:auto;border:2px solid rgba(255,204,0,0.4);display:flex;flex-direction:column;gap:6px}
+  .peerBadge{display:flex;justify-content:space-between;align-items:center;padding:6px 12px;border-radius:14px;
+    background:rgba(255,255,255,0.08);border-left:4px solid #fff}
+  .peerBadge.blue{border-left-color:#2172f3;background:rgba(33,114,243,0.18)}
+  .peerBadge.red{border-left-color:#f72585;background:rgba(247,37,133,0.18)}
+  .peerName{font-family:'Nunito',sans-serif;font-weight:800;font-size:13px}
+  .peerStatus{font-family:'Fredoka One',sans-serif;font-size:11px;padding:2px 8px;border-radius:10px;background:rgba(255,255,255,0.2)}
   .div{font-size:12px;opacity:.7;width:100%}
 
   #hud{position:fixed;left:12px;bottom:12px;color:#fff;font-size:13px;text-shadow:0 1px 3px #000;pointer-events:none;line-height:1.5}
@@ -212,17 +236,40 @@
       <p class="div" id="mpStatus" style="color:#ffcc00;margin:0"></p>
     </div>
 
-    <!-- Tela do Lobby de Espera -->
+    <!-- Tela do Lobby de Espera Multiplayer SNES -->
     <div id="scrWait" style="display:none;width:100%;flex-direction:column;gap:12px;align-items:center">
-      <h2 style="margin:0;font-family:'Fredoka One',sans-serif;color:#ffe066;font-size:24px">SALA <span id="waitCode"></span></h2>
-      <div id="teamPick">
-        <button data-t="0" style="background:linear-gradient(180deg,#5da3ff,#2172f3);color:#fff;border:3px solid #fff">🔵 TIME AZUL</button>
-        <button data-t="1" style="background:linear-gradient(180deg,#ff6b6b,#d90429);color:#fff;border:3px solid #fff">🔴 TIME VERMELHO</button>
+      <div class="lobbyTitleBox">
+        <span>SALA: <b id="waitCode" style="color:#ffe066">----</b></span>
       </div>
+      
+      <div class="vsTeamsContainer">
+        <div class="teamCard blue selected" id="cardTeam0" onclick="chooseTeam(0)">
+          <div class="teamBadge" style="color:#60a5fa">🔵 TIME AZUL</div>
+          <div class="teamCount" id="countTeam0">0 Jogadores</div>
+        </div>
+        <div class="teamCard red" id="cardTeam1" onclick="chooseTeam(1)">
+          <div class="teamBadge" style="color:#f87171">🔴 TIME VERMELHO</div>
+          <div class="teamCount" id="countTeam1">0 Jogadores</div>
+        </div>
+      </div>
+
+      <div style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:0 4px">
+        <span style="font-family:'Fredoka One',sans-serif;font-size:12px;color:#ffe066">JOGADORES CONECTADOS:</span>
+      </div>
+
       <div id="peerList"></div>
-      <button id="btnStart" class="arcadeBtn btnGold" style="display:none">▶ INICIAR BATALHA!</button>
-      <p id="waitHint" class="div" style="color:#ffe066">⏳ Aguardando o anfitrião iniciar…</p>
-      <button id="btnLeave" class="arcadeBtn btnPurple" style="padding:10px">↩ SAIR DA SALA</button>
+
+      <button id="btnStart" class="arcadeBtn btnGold" style="display:none">
+        <span>▶ INICIAR BATALHA!</span>
+      </button>
+
+      <p id="waitHint" class="div" style="color:#ffe066;margin:0;font-family:'Fredoka One',sans-serif">
+        ⏳ Aguardando anfitrião iniciar...
+      </p>
+
+      <button id="btnLeave" class="arcadeBtn btnPurple" style="padding:10px 18px;font-size:13px">
+        <span>↩ SAIR DA SALA</span>
+      </button>
     </div>
   </div>
 </div>
@@ -1060,9 +1107,38 @@ async function joinRoom(code){
  }catch(e){$('mpStatus').textContent='Não foi possível entrar na sala: '+e.message;}
 }
 $('btnLeave').onclick=()=>location.reload();
-document.querySelectorAll('#teamPick button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#teamPick button').forEach(x=>x.classList.remove('on'));b.classList.add('on');ROOM.presence({team:+b.dataset.t}).catch(()=>{});});
+function chooseTeam(t){
+  const c0 = $('cardTeam0'), c1 = $('cardTeam1');
+  if (t === 0){ c0.classList.add('selected'); c1.classList.remove('selected'); }
+  else { c1.classList.add('selected'); c0.classList.remove('selected'); }
+  if (ROOM) ROOM.presence({team: t}).catch(()=>{});
+}
 function amIHost(peers){const keys=peers.map(p=>p.peer).sort();const my=peers.find(p=>p.sameTab);return !!my&&keys[0]===my.peer;}
-function onPeersLobby(change){const peers=change.peers;const host=amIHost(peers);$('btnStart').style.display=host?'block':'none';$('waitHint').style.display=host?'none':'block';$('peerList').innerHTML=peers.map(p=>{const d=p.presence||{};const team=d.team===0?'🔵':d.team===1?'🔴':'⚪';return `<div><span>${team} ${esc(d.name||'...')} ${p.sameTab?'(você)':''}</span><span>${d.ready?'pronto':''}</span></div>`;}).join('');}
+function onPeersLobby(change){
+  const peers = change.peers || [];
+  const host = amIHost(peers);
+  $('btnStart').style.display = host ? 'flex' : 'none';
+  $('waitHint').style.display = host ? 'none' : 'block';
+  
+  let blueCount = 0, redCount = 0;
+  $('peerList').innerHTML = peers.map(p => {
+    const d = p.presence || {};
+    const isBlue = d.team === 0;
+    const isRed = d.team === 1;
+    if (isBlue) blueCount++;
+    if (isRed) redCount++;
+    const teamClass = isBlue ? 'blue' : (isRed ? 'red' : '');
+    const teamIcon = isBlue ? '🔵' : (isRed ? '🔴' : '⚪');
+    const roleTxt = p.sameTab ? 'VOCÊ' : (d.ready ? 'PRONTO' : 'ESPERANDO');
+    return `<div class="peerBadge ${teamClass}">
+      <span class="peerName">${teamIcon} ${esc(d.name || 'Guerreiro')}</span>
+      <span class="peerStatus">${roleTxt}</span>
+    </div>`;
+  }).join('');
+  
+  if ($('countTeam0')) $('countTeam0').textContent = `${blueCount} Jogador(es)`;
+  if ($('countTeam1')) $('countTeam1').textContent = `${redCount} Jogador(es)`;
+}
 $('btnStart').onclick=async()=>{await DB.doc('rooms/'+roomCode).update({status:'em partida',phase:'freeze',round:1,score:[0,0],tmr:3,lastWinner:-2}).catch(()=>{});};
 function onRoomDoc(snap){if(!snap.exists)return;const d=snap.data();if((d.phase==='freeze'||d.phase==='live'||d.phase==='end'||d.phase==='over')&&$('ov').style.display!=='none'&&state!=='over')startGame();applyRoundDoc(d);}
 
