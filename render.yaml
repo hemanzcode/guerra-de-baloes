@@ -1,9 +1,7 @@
 services:
   - type: web
-    name: guerra-de-baloes-multiplayer
-    runtime: docker
-    plan: free
-    dockerfilePath: ./Dockerfile
-    dockerContext: .
+    name: balooons
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn server:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /health
-    autoDeploy: true
